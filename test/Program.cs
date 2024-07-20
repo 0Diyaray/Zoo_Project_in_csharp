@@ -2,9 +2,11 @@
 
 class Animal
 {
+	public static int _Id = 1;
+	public int Id;
 	public string Species;
 	public int Age;
-	public int Kg;
+	public float Kg;
 	private string _Habitat;
 	public string Habitat
 		{
@@ -14,21 +16,33 @@ class Animal
 		}
 		set
 		{
-			if (value == "1")
+			while (true)
 			{
-				_Habitat = "Forest";
-			}
-			else if (value == "2")
-			{
-				_Habitat = "Water";
-			}
-			else if (value == "3")
-			{ 
-				_Habitat = "Desert";	
-			}
-			else if(value == "4")
-			{
-				_Habitat = "Polar";
+				if (value == "1")
+				{
+					_Habitat = "Forest";
+					break;
+				}
+				else if (value == "2")
+				{
+					_Habitat = "Water";
+					break;
+				}
+				else if (value == "3")
+				{
+					_Habitat = "Desert";
+					break;
+				}
+				else if (value == "4")
+				{
+					_Habitat = "Polar";
+					break;
+				}
+				else
+				{
+					Console.WriteLine("Invalid input.\nShould be between (1-4)\n(1)Forest || (2)Water || (3)Desert || (4)Polar");
+					value = Console.ReadLine();
+				}
 			}
         }
 	}
@@ -39,41 +53,39 @@ class Zoo
 
 	public static void add_to_zoo()
 	{ Animal a = new Animal();
-		Console.Write("Enter the species: ");
+		Console.Write("Enter the species(Fish, Bird, Reptile etc.): ");
+		a.Id = Animal._Id++;
 		a.Species = Console.ReadLine();
 		Console.WriteLine("Select a habitat:\nHabitat: 1. Forest 2. Water 3. Desert 4. Polar");
 		a.Habitat = (Console.ReadLine());
-		Console.Write("Age: ");
+		Console.Write("Age(ex:25): ");
 		a.Age = int.Parse(Console.ReadLine());
-		Console.Write("Kg: ");
-		a.Kg = int.Parse(Console.ReadLine());
+		Console.Write("Kg(ex:145,25): ");
+		a.Kg = float.Parse(Console.ReadLine());
 		Animals.Add(a);
 		Console.WriteLine(a.Species + " added");
 	}
 	public static void delete()
 	{
-		Console.WriteLine("Enter species of the animal to be deleted: ");
+		Console.WriteLine("Enter habitat of the animal to be deleted: ");
 		string xy = Console.ReadLine();
-		Console.WriteLine($"All {xy} Species listed below");
+		Console.WriteLine($"All {xy} animals listed below.\nSelect by Id");
+		Console.WriteLine("Id | Species | Age | Kg | Habitat");
 		Console.WriteLine("-------------------------------------------");
-		foreach (var x in Animals.Where(x => x.Species == xy))
+		foreach (var x in Animals.Where(x => x.Habitat == xy))
 		{ 
-			Console.WriteLine(x.Species + " " + x.Age + " " + x.Kg); 
+			Console.WriteLine(x.Id + " " + x.Species + " " + x.Age + " " + x.Kg);
 		}
-		Console.WriteLine("Enter the age of the animal: ");
-		int age = int.Parse(Console.ReadLine());
-		Console.WriteLine("Enter the kg of the animal: ");
-		int kg = int.Parse(Console.ReadLine());
-		Animals.RemoveAll(x => x.Species == xy && x.Age == age && x.Kg == kg);
-		Console.WriteLine(xy +" deleted");
+		Animals.RemoveAll(x => x.Id == int.Parse(Console.ReadLine()));
+		Console.WriteLine("Animal deleted");
 		}
 	public static void list_it()
 	{
-		Console.WriteLine("Species Age Kg Habitat");
-		Console.WriteLine("------- --- --- ------");
+		Console.WriteLine("Id | Species | Age | Kg | Habitat");
+		Console.WriteLine("--- ------- --- --- ------");
 		foreach (var x in Animals)
 		{
-			Console.WriteLine(x.Species + " " + x.Age + " " + x.Kg+" "+x.Habitat);
+			Console.WriteLine(x.Id+" | "+x.Species + " | " + x.Age + " Age | " + x.Kg + " Kg | "+ x.Habitat);
 		}
 	}
 	
@@ -103,6 +115,7 @@ class Program
 					Console.WriteLine("Invalid input");
 					break;
 			}
+			Console.WriteLine();
 		}
 	}
 }
