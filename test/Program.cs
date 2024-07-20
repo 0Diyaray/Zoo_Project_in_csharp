@@ -5,6 +5,33 @@ class Animal
 	public string Species;
 	public int Age;
 	public int Kg;
+	private string _Habitat;
+	public string Habitat
+		{
+		get
+		{
+			return _Habitat ;
+		}
+		set
+		{
+			if (value == "1")
+			{
+				_Habitat = "Forest";
+			}
+			else if (value == "2")
+			{
+				_Habitat = "Water";
+			}
+			else if (value == "3")
+			{ 
+				_Habitat = "Desert";	
+			}
+			else if(value == "4")
+			{
+				_Habitat = "Polar";
+			}
+        }
+	}
 }
 class Zoo
 {
@@ -14,6 +41,8 @@ class Zoo
 	{ Animal a = new Animal();
 		Console.Write("Enter the species: ");
 		a.Species = Console.ReadLine();
+		Console.WriteLine("Select a habitat:\nHabitat: 1. Forest 2. Water 3. Desert 4. Polar");
+		a.Habitat = (Console.ReadLine());
 		Console.Write("Age: ");
 		a.Age = int.Parse(Console.ReadLine());
 		Console.Write("Kg: ");
@@ -40,11 +69,11 @@ class Zoo
 		}
 	public static void list_it()
 	{
-		Console.WriteLine("Species Age Kg");
-		Console.WriteLine("------- --- ---");
+		Console.WriteLine("Species Age Kg Habitat");
+		Console.WriteLine("------- --- --- ------");
 		foreach (var x in Animals)
 		{
-			Console.WriteLine(x.Species + " " + x.Age + " " + x.Kg);
+			Console.WriteLine(x.Species + " " + x.Age + " " + x.Kg+" "+x.Habitat);
 		}
 	}
 	
